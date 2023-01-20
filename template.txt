@@ -1,0 +1,6 @@
+https://dev-rqwgn43ich0abx6z.us.auth0.com/authorize?
+  response_type=code|token&
+  client_id=6NXR6aFRhXcMDTNmS5zdgeKo0JuAO7jd&
+  connection=CONNECTION&
+  redirect_uri=https://todo-backend-eight.vercel.app&
+  state=STATE

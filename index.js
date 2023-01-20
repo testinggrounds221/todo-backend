@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3000;
 const db = require("./models/");
 const cors = require("cors");
+const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -12,7 +13,14 @@ function success(res, payload) {
 	return res.status(200).json(payload);
 }
 
-app.get("/todos", async (req, res, next) => {
+const checkJwt = auth({
+	audience: 'http://localhost:3000/',
+	issuerBaseURL: `https://dev-rqwgn43ich0abx6z.us.auth0.com/`,
+});
+
+const checkScopes = requiredScopes('read:todo');
+
+app.get("/todos", checkJwt, checkScopes, async (req, res, next) => {
 	console.log(res)
 	try {
 		const todos = await db.Todo.find({});
